@@ -1,0 +1,6 @@
+walidację danych wejściowych (z negatywnym nastawieniem),
+opóźnienia i limity prób (żeby utrudnić zdalne zgadywanie i atak brute-force),
+ograniczone informowanie o błędach (np. o tym przyczynie odmowy uwierzytelenia),
+bezpieczne przechowywanie hasła (wykorzystanie kryptograficznych funcji mieszających, wykorzystanie soli, wielokrotne hashowanie)
+kontrola siły hasła, żeby uświadomić użytkownikowi problem
+zarządzanie uprawnieniami do zasobów.

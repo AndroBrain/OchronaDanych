@@ -1,0 +1,10 @@
+skonteneryzowanie przy pomocą Docker
+$ docker-compose up lub $ sh run-docker.sh (w przypadku niezrealizowania tego podpunktu aplikacja jest oceniana za maksymalnie 15pkt)
+aplikacja posiada bazę danych (SQL, może być SQLite),
+bezpieczne połączenie z aplikacją (szyfrowane połączenie),
+wszystkie dane wejściowe od użytkownika podlegają walidacji z negatywnym nastawieniem,
+weryfikowany jest dostęp użytkowników do zasobów,
+weryfikacja liczby nieudanych prób logowania,
+sprawdzanie jakości hasła (np. jego entropii),
+dodać opóźnienie podczas logowania,
+wykorzystując szkielet aplikacji (czy moduł) należy dokładnie wiedzieć jak jest on zaimplementowany.
