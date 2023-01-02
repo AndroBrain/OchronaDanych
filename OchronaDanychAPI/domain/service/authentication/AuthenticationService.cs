@@ -5,6 +5,7 @@ using ShopManagmentAPI.data.repository;
 using ShopManagmentAPI.domain.model.authentication;
 using ShopManagmentAPI.domain.model.user;
 using ShopManagmentAPI.domain.repository;
+using System.Collections.Concurrent;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

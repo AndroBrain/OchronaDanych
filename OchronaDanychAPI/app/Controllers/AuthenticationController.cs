@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OchronaDanychAPI.app.limit;
 using ShopManagmentAPI.data.db.user;
 using ShopManagmentAPI.data.repository;
 using ShopManagmentAPI.domain.model.authentication;
@@ -14,6 +16,7 @@ namespace ShopManagmentAPI.app.Controllers;
 public class AuthenticationController : ControllerBase
 {
     private readonly IAuthenticationService userService = new AuthenticationService(new UserRepository(new UserDb()));
+    private readonly LoginLimiter loginLimiter = new LoginLimiter();
 
     [AllowAnonymous]
     [HttpPost("Register")]
@@ -35,6 +38,11 @@ public class AuthenticationController : ControllerBase
     public async Task<ActionResult> Login([FromBody] LoginDTO loginDTO)
     {
         await Task.Delay(2000);
+        if (!loginLimiter.CanLogin(loginDTO.Email))
+        {
+            return StatusCode(StatusCodes.Status429TooManyRequests, "Too Many Request try again in 10 minutes");
+        }
+        loginLimiter.AddAttempt(loginDTO.Email);
         var idUser = userService.FindUserByEmail(loginDTO.Email);
         if (idUser == null)
         {
@@ -46,7 +54,7 @@ public class AuthenticationController : ControllerBase
         {
             return StatusCode(StatusCodes.Status403Forbidden, "User with given name and password doesn't exist");
         }
-
+        loginLimiter.ResetAttempts(loginDTO.Email);
         return Ok(userService.GenerateJWT(idUser));
     }
 }
