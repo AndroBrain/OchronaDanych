@@ -24,12 +24,16 @@ public class AuthenticationController : ControllerBase
     {
         try
         {
-            userService.RegisterUser(user);
-            return Ok("Successfully added new user");
+            var error = userService.RegisterUser(user);
+            if (error == null)
+            {
+                return Ok("Successfully added new user");
+            }
+            return BadRequest(error);
         }
         catch (ArgumentException e)
         {
-            return BadRequest("User already exists");
+            return BadRequest("User with given email already exists");
         }
     }
 
