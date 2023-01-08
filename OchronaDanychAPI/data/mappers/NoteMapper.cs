@@ -14,6 +14,7 @@ namespace OchronaDanychAPI.data.mappers
                 Name = entity.Name,
                 Description = entity.Description,
                 IsPublic = entity.IsPublic,
+                IsEncrypted = entity.Encrypted != null && entity.Key != null,
                 OwnerId = entity.OwnerId,
             };
         }

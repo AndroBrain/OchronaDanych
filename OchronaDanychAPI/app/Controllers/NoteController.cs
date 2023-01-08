@@ -76,30 +76,58 @@ public class NoteController : ControllerBase
         {
             return Ok(note);
         }
-        return Unauthorized();
+        return NotFound();
     }
 
     [HttpPut("EncryptNote")]
     public ActionResult EncryptNote([FromBody] EncryptNoteDto encryptNoteDto)
     {
-        int id = encryptNoteDto.Id;
-        var note = noteRepository.GetNote(id);
-        if (note.IsPublic)
-        {
-            return BadRequest();
-        }
         var user = authSerivce.GetUserFromToken(HttpContext);
         if (user is null)
         {
             return Unauthorized();
         }
+        int id = encryptNoteDto.Id;
+        var note = noteRepository.GetNote(id);
+
         var notes = noteRepository.GetUserNotes(user.Id);
         if (notes.FirstOrDefault(note => note?.Id == id, null) != null)
         {
-            noteRepository.EncryptNote(encryptNoteDto);
+            if (note.IsPublic || note.IsEncrypted)
+            {
+                return BadRequest();
+            }
+            noteRepository.EncryptNote(note, encryptNoteDto.Password);
             return Ok();
         }
-        return Unauthorized();
+        return NotFound();
+    }
+
+    [HttpGet("DecryptNote")]
+    public ActionResult<string> DecryptNote([FromBody] EncryptNoteDto encryptNoteDto) {
+        var user = authSerivce.GetUserFromToken(HttpContext);
+        if (user is null)
+        {
+            return Unauthorized();
+        }
+        int id = encryptNoteDto.Id;
+        var note = noteRepository.GetNote(id);
+
+        var notes = noteRepository.GetUserNotes(user.Id);
+        if (notes.FirstOrDefault(note => note?.Id == id, null) != null)
+        {
+            if (note.IsPublic || !note.IsEncrypted)
+            {
+                return BadRequest();
+            }
+            var description = noteRepository.DecryptNote(id, encryptNoteDto.Password);
+            if (description is null)
+            {
+                return Forbid();
+            }
+            return Ok(description);
+        }
+        return NotFound();
     }
 
     [HttpPut("PublishNote")]
@@ -118,7 +146,7 @@ public class NoteController : ControllerBase
         var notes = noteRepository.GetUserNotes(user.Id);
         if (notes.FirstOrDefault(note => note?.Id == id, null) == null)
         {
-            return Unauthorized();
+            return NotFound();
         }
         if (note.IsPublic || note.IsEncrypted)
         {

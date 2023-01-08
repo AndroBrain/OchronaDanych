@@ -8,7 +8,8 @@ namespace OchronaDanychAPI.domain.repository
         public List<NoteDisplayDto> GetPublicNotes();
         public List<NoteDisplayDto> GetUserNotes(int userId);
         public NoteDto? GetNote(int id);
-        public void EncryptNote(EncryptNoteDto encryptNoteDto);
+        public void EncryptNote(NoteDto encryptNoteDto, string password);
+        public string? DecryptNote(int id, string password);
         public bool PublishNote(NoteDto note);
     }
 }

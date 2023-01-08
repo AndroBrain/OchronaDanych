@@ -2,6 +2,8 @@
 using OchronaDanychAPI.data.mappers;
 using OchronaDanychAPI.domain.model.note;
 using OchronaDanychAPI.domain.repository;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace OchronaDanychAPI.data.repository
 {
@@ -18,9 +20,44 @@ namespace OchronaDanychAPI.data.repository
             _noteDao.CreateNote(NoteMapper.DtoToEntity(noteDto));
         }
 
-        public void EncryptNote(EncryptNoteDto encryptNoteDto)
+        public string? DecryptNote(int id, string password)
         {
-            throw new NotImplementedException();
+            using (Aes aes = Aes.Create())
+            {
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] aesKey = SHA256.Create().ComputeHash(passwordBytes);
+                byte[] aesIV = MD5.Create().ComputeHash(passwordBytes);
+                aes.Key = aesKey;
+                aes.IV = aesIV;
+                var note = _noteDao.GetNote(id);
+                if (note is null || note.Encrypted == null || note.Key == null)
+                {
+                    return null;
+                }
+                if (!aesKey.SequenceEqual(note.Key))
+                {
+                    return null;
+                }
+                return AesEncryptor.DecryptStringFromBytes(note.Encrypted, aes.Key, aes.IV);
+            }
+        }
+
+        public void EncryptNote(NoteDto note, string password)
+        {
+            using (Aes aes = Aes.Create())
+            {
+                byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                byte[] aesKey = SHA256.Create().ComputeHash(passwordBytes);
+                byte[] aesIV = MD5.Create().ComputeHash(passwordBytes);
+                aes.Key = aesKey;
+                aes.IV = aesIV;
+                byte[] encrypted = AesEncryptor.EncryptStringToBytes(note.Description, aes.Key, aes.IV);
+                var entity = NoteMapper.DtoToEntity(note);
+                entity.Description = null;
+                entity.Encrypted = encrypted;
+                entity.Key = aes.Key;
+                _noteDao.Update(entity);
+            }
         }
 
         public NoteDto? GetNote(int id)
