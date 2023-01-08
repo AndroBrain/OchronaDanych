@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OchronaDanychAPI.data.db.note;
 using OchronaDanychAPI.data.repository;
+using OchronaDanychAPI.domain;
 using OchronaDanychAPI.domain.model.note;
 using OchronaDanychAPI.domain.repository;
 using ShopManagmentAPI.data.db.user;
@@ -96,6 +97,11 @@ public class NoteController : ControllerBase
             if (note.IsPublic || note.IsEncrypted)
             {
                 return BadRequest();
+            }
+            var errorMessage = PasswordChecker.IsValid(encryptNoteDto.Password);
+            if (errorMessage != null)
+            {
+                return BadRequest(errorMessage);
             }
             noteRepository.EncryptNote(note, encryptNoteDto.Password);
             return Ok();

@@ -31,17 +31,10 @@ public class AuthenticationService : IAuthenticationService
         {
             return "Invalid Email";
         }
-        if (!PasswordChecker.IsStrongEnough(user.Password))
+        var errorMessage = PasswordChecker.IsValid(user.Password);
+        if (errorMessage != null)
         {
-            return "Password must contain 1 lowercase character, 1 uppercase character, 1 number, 1 special character and be at least 8 letters long";
-        }
-        if (PasswordChecker.IsTooLong(user.Password))
-        {
-            return "Password too long";
-        }
-        if (!PasswordChecker.IsEntropyBigEnough(user.Password))
-        {
-            return "Password entropy is too low";
+            return errorMessage;
         }
         var newUser = new User()
         {
