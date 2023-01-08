@@ -79,7 +79,7 @@ public class NoteController : ControllerBase
         return NotFound();
     }
 
-    [HttpPut("EncryptNote")]
+    [HttpPost("EncryptNote")]
     public ActionResult EncryptNote([FromBody] EncryptNoteDto encryptNoteDto)
     {
         var user = authSerivce.GetUserFromToken(HttpContext);
@@ -103,7 +103,7 @@ public class NoteController : ControllerBase
         return NotFound();
     }
 
-    [HttpGet("DecryptNote")]
+    [HttpPost("DecryptNote")]
     public ActionResult<string> DecryptNote([FromBody] EncryptNoteDto encryptNoteDto) {
         var user = authSerivce.GetUserFromToken(HttpContext);
         if (user is null)
