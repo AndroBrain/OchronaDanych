@@ -50,13 +50,13 @@ public class AuthenticationController : ControllerBase
         var idUser = userService.FindUserByEmail(loginDTO.Email);
         if (idUser == null)
         {
-            return StatusCode(StatusCodes.Status403Forbidden, "User with given name and password doesn't exist");
+            return StatusCode(StatusCodes.Status403Forbidden, "User with given email and password doesn't exist");
         }
 
         var passwordVerificationResult = userService.VerifyPasswordHashes(idUser.User, loginDTO.Password);
         if (!passwordVerificationResult)
         {
-            return StatusCode(StatusCodes.Status403Forbidden, "User with given name and password doesn't exist");
+            return StatusCode(StatusCodes.Status403Forbidden, "User with given email and password doesn't exist");
         }
         loginLimiter.ResetAttempts(loginDTO.Email);
         return Ok(userService.GenerateJWT(idUser));

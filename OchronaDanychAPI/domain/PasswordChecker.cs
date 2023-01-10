@@ -35,7 +35,7 @@ namespace OchronaDanychAPI.domain
 
         public static bool IsEntropyBigEnough(string password)
         {
-            return ShannonEntropy(password) * 16 > 40;
+            return ShannonEntropy(password) > 2.5;
         }
 
         private static double ShannonEntropy(string password)
