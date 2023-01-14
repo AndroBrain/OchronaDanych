@@ -13,4 +13,6 @@ I ustawić Allow invalid certificates for resources loaded from localhost. na en
 
 Początkowo myślałem, że będą to 2 oddzielne repo, więc załączam ich linki w razie potrzeby sprawdzenia historii:
 https://github.com/AndroBrain/ochrona_danych_backend
+
+
 https://github.com/AndroBrain/ochrona_danych_frontend
