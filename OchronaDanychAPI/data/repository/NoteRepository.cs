@@ -2,6 +2,7 @@
 using OchronaDanychAPI.data.mappers;
 using OchronaDanychAPI.domain.model.note;
 using OchronaDanychAPI.domain.repository;
+using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -10,6 +11,7 @@ namespace OchronaDanychAPI.data.repository
     public class NoteRepository : INoteRepository
     {
         private readonly INoteDao _noteDao;
+        private readonly byte[] aesIV = new byte[] { 6, 13, 100, 12, 64, 81, 53, 12, 98, 24, 121, 110, 42, 35, 67, 35 };
         public NoteRepository(INoteDao noteDao)
         {
             _noteDao = noteDao;
@@ -26,7 +28,6 @@ namespace OchronaDanychAPI.data.repository
             {
                 byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
                 byte[] aesKey = SHA256.Create().ComputeHash(passwordBytes);
-                byte[] aesIV = MD5.Create().ComputeHash(passwordBytes);
                 aes.Key = aesKey;
                 aes.IV = aesIV;
                 var note = _noteDao.GetNote(id);
@@ -48,7 +49,6 @@ namespace OchronaDanychAPI.data.repository
             {
                 byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
                 byte[] aesKey = SHA256.Create().ComputeHash(passwordBytes);
-                byte[] aesIV = MD5.Create().ComputeHash(passwordBytes);
                 aes.Key = aesKey;
                 aes.IV = aesIV;
                 byte[] encrypted = AesEncryptor.EncryptStringToBytes(note.Description, aes.Key, aes.IV);

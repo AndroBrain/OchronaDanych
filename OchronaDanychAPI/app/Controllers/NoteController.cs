@@ -94,7 +94,7 @@ public class NoteController : ControllerBase
         var notes = noteRepository.GetUserNotes(user.Id);
         if (notes.FirstOrDefault(note => note?.Id == id, null) != null)
         {
-            if (note.IsPublic || note.IsEncrypted)
+            if (note == null || note.IsPublic || note.IsEncrypted)
             {
                 return BadRequest();
             }
@@ -110,7 +110,8 @@ public class NoteController : ControllerBase
     }
 
     [HttpPost("DecryptNote")]
-    public ActionResult<string> DecryptNote([FromBody] EncryptNoteDto encryptNoteDto) {
+    public async Task<ActionResult<string>> DecryptNote([FromBody] EncryptNoteDto encryptNoteDto) {
+        await Task.Delay(2000);
         var user = authSerivce.GetUserFromToken(HttpContext);
         if (user is null)
         {
@@ -122,7 +123,7 @@ public class NoteController : ControllerBase
         var notes = noteRepository.GetUserNotes(user.Id);
         if (notes.FirstOrDefault(note => note?.Id == id, null) != null)
         {
-            if (note.IsPublic || !note.IsEncrypted)
+            if (note == null || note.IsPublic || !note.IsEncrypted)
             {
                 return BadRequest();
             }

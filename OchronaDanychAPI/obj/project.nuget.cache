@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PoonsVn1jXaZUKZM/OYdDEba1hpD5KoiQ/xyDpJEdpg8ye/N27jqm7HkGwAGa6nHLxE9uIrjtBBKrCs6r3A2kw==",
+  "dgSpecHash": "z5q0GweO0ajz5ecJMBwe23UaWqEs1782VAicXNMX8EC7nrK6GWZv6sdNIct0u4Adn1GK0udMc25+LCpRnnDt3A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\Ochrona Danych\\OchronaDanychAPI\\OchronaDanychAPI.csproj",
+  "projectFilePath": "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\merge\\OchronaDanychAPI\\OchronaDanychAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Michal\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.0\\microsoft.aspnetcore.authentication.jwtbearer.6.0.0.nupkg.sha512",
     "C:\\Users\\Michal\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

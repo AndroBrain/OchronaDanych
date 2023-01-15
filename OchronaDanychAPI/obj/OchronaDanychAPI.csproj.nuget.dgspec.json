@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\Ochrona Danych\\OchronaDanychAPI\\OchronaDanychAPI.csproj": {}
+    "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\merge\\OchronaDanychAPI\\OchronaDanychAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\Ochrona Danych\\OchronaDanychAPI\\OchronaDanychAPI.csproj": {
+    "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\merge\\OchronaDanychAPI\\OchronaDanychAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\Ochrona Danych\\OchronaDanychAPI\\OchronaDanychAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\merge\\OchronaDanychAPI\\OchronaDanychAPI.csproj",
         "projectName": "OchronaDanychAPI",
-        "projectPath": "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\Ochrona Danych\\OchronaDanychAPI\\OchronaDanychAPI.csproj",
+        "projectPath": "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\merge\\OchronaDanychAPI\\OchronaDanychAPI.csproj",
         "packagesPath": "C:\\Users\\Michal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\Ochrona Danych\\OchronaDanychAPI\\obj\\",
+        "outputPath": "C:\\Users\\Michal\\Desktop\\Nowy folder (2)\\merge\\OchronaDanychAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Michal\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -2,6 +2,7 @@
 
 namespace OchronaDanychAPI.data
 {
+    // Based on https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aes?view=net-7.0
     public class AesEncryptor
     {
         public static byte[] EncryptStringToBytes(string plainText, byte[] Key, byte[] IV)
